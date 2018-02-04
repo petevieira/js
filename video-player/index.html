@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+  
+<html lang="en">
+
+<!-- Head -->
+<head>
+  <meta charset="utf-8">
+  <title>Custom HTML5 Video Player</title>
+  <script src="js/videoPlayer.js"></script>
+</head>
+
+<!-- Body -->
+<body>
+
+<div id="container">
+
+  <h1>HTML5 Video</h1>
+
+  <div id="video_container">
+		<!-- Add video with controls. Preload video. -->
+    <video controls width=1000 preload>
+      <source src="http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4" type="video/mp4">
+      <source src="http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.ogg" type="video/ogg">
+      <!-- LINK TO FLASH FALLBACK PLAYER HERE. COULD BE EMBED OR OBJECT ELEMENT -->
+    </video>
+
+    <!-- Custom video controls -->
+    <div id="video_controls">
+    	<!-- Add play button -->
+      <button id="play" title="Play"> &#x25BA;</button>
+
+      <!-- Add progress bar -->
+      <div id="progress">
+        <div id="progress_box">
+          <span id="play_progress"></span>
+        </div>
+      </div>
+
+      <!-- Add full screen toggle button -->
+      <button id="full_screen" title="FullScreen Toggle"> FS </button>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
