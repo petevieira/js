@@ -28,7 +28,7 @@
       // If fullscreen button clicked either go fullscreen or unfullscreen.
       // Using 'that' because 'this' refers to button. 'that' refers to video
       fullScreenToggleButton.addEventListener('click', function() {
-        that.toggleFullScreen(videoIsFullScreen);
+        that.fullScreenOn();
       }, true);
     },
 
@@ -92,29 +92,36 @@
       }
     },
 
-    toggleFullScreen : function(goFullScreen) {
-      if (goFullScreen) {
-        // Set new video width and height according to screen width and height
-        video.style.cssText = 'position: fixed; width:' + window.innerWidth + 'px; height: ' + window.innerHeight + 'px;';
-        // Apply a classname to the video and controls, if the designer needs it
-        video.className = 'fullsizeVideo';
-        videoControls.className = 'fs-control';
-        fullScreenToggleButton.className = 'fs-active control';
-        // Listen for escape key. If pressed, close full screen
-        document.addEventListener('keydown', this.checkKeyCode, false);
-      } else {
-        video.style.cssText = 'static';
-        video.className = '';
-        fullScreenToggleButton.className = 'control';
-        videoControls.className = '';
+    fullScreenOn : function() {
+      // Set new video width and height according to screen width and height
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.mozRequestFullScreen) {
+        video.mozRequestFullScreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
       }
-      videoIsFullScreen = !videoIsFullScreen;
+      // Apply a classname to the video and controls, if the designer needs it
+      video.className = 'fullsizeVideo';
+      videoControls.className = 'fs-control';
+      fullScreenToggleButton.className = 'fs-active control';
+      // Listen for escape key. If pressed, close full screen
+      document.addEventListener('keydown', this.checkKeyCode, false);
+      videoIsFullScreen = true;
+    },
+
+    fullScreenOff : function() {
+      video.style.cssText = 'static';
+      video.className = '';
+      fullScreenToggleButton.className = 'control';
+      videoControls.className = '';
+      videoIsFullScreen = false;
     },
 
     checkKeyCode : function(event) {
       event = event || window.event;
       if ((event.keyCode || event.which) === 27) {
-        videoPlayer.toggleFullScreen(false);
+        videoPlayer.fullScreenOff();
       }
     }
 
